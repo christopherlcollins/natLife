@@ -9,6 +9,7 @@ var subtitle;
 var activeVid;
 var nextVid;
 var prevVid;
+var pauseMenu;
 
 //states
 var isHoveringOnNext;
