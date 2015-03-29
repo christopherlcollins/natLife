@@ -54,3 +54,4 @@ function bindComponents(){}
 
 //sub actions
 
+function animateUI(){}
