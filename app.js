@@ -48,6 +48,8 @@ function chapterNext(){}
 
 //major actions
 
+function bindComponents(){}
+
 
 //sub actions
 
