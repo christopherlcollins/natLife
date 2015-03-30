@@ -1,3 +1,6 @@
+//-----attributes
+var timeoutDelay = 1000;
+
 //-----components
 
 
@@ -11,6 +14,9 @@ var activeTitle;
 var nextSubtitle;
 var prevSubtitle;
 var activeSubtitle;
+var activeElement;
+var nextElement;
+var prevElement;
 var activeVid;
 var nextVid;
 var prevVid;
@@ -33,10 +39,16 @@ var isTransitioningToDown;
 var isPlaying;
 var isPaused;
 
+var nextCountdown;
+var prevCountdown;
+var upCountdown;
+var downCountdown;
+
 
 //-----------------interactions-----------------
 
 bindComponents();
+resizeElement();
 
 nextButton.click(function(){next();});
 prevButton.click(function(){prev();});
@@ -78,10 +90,14 @@ $(downButton).on({
 
 
 function startNext(){
+	isHoveringOnNext = true;
 	console.log('startNext');
+	nextCountdown = setTimeout(function(){next();}, timeoutDelay);
 }
 function cancelNext(){
+	isHoveringOnNext = false;
 	console.log('cancelNext');
+	clearTimeout(nextCountdown);
 }
 
 
@@ -94,21 +110,29 @@ function next(){
 
 console.log('next');
 
-activeVid.removeClass('active');
-activeVid.addClass('previous');
-prevVid.remove();
-nextVid.removeClass('next');
-nextVid.addClass('active');
-appendElement();	
+activeElement.removeClass('active');
+activeElement.addClass('previous');
+prevElement.remove();
+nextElement.removeClass('next');
+nextElement.addClass('active');
+appendElement();
+bindComponents();	
 	
 	
 }
 
 function startPrev(){
+	isHoveringOnPrev = true;
 	console.log('startPrev');
+	prevCountdown = setTimeout(function(){prev();}, timeoutDelay);
+	
 }
 function cancelPrev(){
+	isHoveringOnPrev = false;
 	console.log('cancelPrev');
+	clearTimeout(prevCountdown);
+
+	
 }
 
 function prev(){
@@ -120,22 +144,30 @@ function prev(){
 
 console.log('prev');
 
-activeVid.removeClass('active');
-activeVid.addClass('next');
-nextVid.remove();
-prevVid.removeClass('previous');
-prevVid.addClass('active');
-prependElement();	
+activeElement.removeClass('active');
+activeElement.addClass('next');
+nextElement.remove();
+prevElement.removeClass('previous');
+prevElement.addClass('active');
+prependElement();
+bindComponents();	
 
 	
 	
 }
 
 function startUp(){
+	isHoveringOnUp = true;
 	console.log('startUp');
+	upCountdown = setTimeout(function(){up();}, timeoutDelay);
+
+
 }
 function cancelUp(){
+	isHoveringOnUp = false;
 	console.log('cancelUp');
+	clearTimeout(upCountdown);
+
 }
 
 
@@ -146,18 +178,30 @@ console.log('up');
 //characters becomes below
 //sub characters becomes active	
 
+
 characterSection.removeClass('sectionActive');	
 characterSection.addClass('sectionBelow');
 subCharacterSection.removeClass('sectionAbove');
-subCharacterSection.addClass('sectionActive');	
+subCharacterSection.addClass('sectionActive');
+
+upButton.hide();
+downButton.show();
+	
+bindComponents();
 	
 }
 
 function startDown(){
+	isHoveringOnDown = true;
 	console.log('startDown');
+	downCountdown = setTimeout(function(){down();}, timeoutDelay);
+
 }
 function cancelDown(){
+	isHoveringOnDown = false;
 	console.log('cancelDown');
+	clearTimeout(downCountdown);
+
 }
 
 function down(){
@@ -168,10 +212,16 @@ console.log('down');
 //subCharacters becomes above
 //characters becomes active
 	
-characterSection.removeClass('sectionActive');	
-characterSection.addClass('sectionBelow');
-subCharacterSection.removeClass('sectionAbove');
-subCharacterSection.addClass('sectionActive');	
+subCharacterSection.removeClass('sectionActive');	
+subCharacterSection.addClass('sectionAbove');
+characterSection.removeClass('sectionAbove');
+characterSection.addClass('sectionActive');
+
+downButton.hide();
+upButton.show();
+
+
+bindComponents();	
 	
 	
 }
@@ -195,18 +245,43 @@ activeTitle = $('.active').find('.title');
 nextSubtitle = $('.next').find('.subtitle');
 prevSubtitle = $('.previous').find('.subtitle');
 activeSubtitle = $('.active').find('.subtitle');
-activeVid = $('.active').find('video');
-nextVid = $('.next').find('video');
-prevVid = $('.previous').find('video');
+activeElement = $('.sectionActive').find('.active');
+nextElement = $('.sectionActive').find('.next');
+prevElement = $('.sectionActive').find('.previous');
+activeVid = $('.sectionActive').find('.active').find('video');
+nextVid = $('.sectionActive').find('.next').find('video');
+prevVid = $('.sectionActive').find('.previous').find('video');
 pauseMenu = $('.pauseMenu');
 characterSection = $('#characters');
-subCharacterSection = $('subCharacters');
+subCharacterSection = $('#subCharacters');
 	
 }
 
+function createElement(elclass,vidurl,title,subtitle){
 
-function appendElement(){}
-function prependElement(){}
+var template = "<div class='element "+elclass+"' style='width:"+$(window).width()+"; height:"+$( window ).height()+"'><video></video><div class='title'>Jonnathan</div><div class='subtitle'></div></div>";
+
+
+return template;	
+
+}
+
+
+
+function appendElement(){
+
+$('.sectionActive').append(createElement('next','','',''));	
+	
+}
+
+function prependElement(){
+
+$('.sectionActive').prepend(createElement('previous','','',''));	
+	
+	
+}
+
+function resizeElement(){$('.element').width( $( window ).width() ); $('.element').height( $( window ).height() ); }
 
 
 //-----------------sub actions-----------------
