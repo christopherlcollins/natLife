@@ -36,8 +36,53 @@ var isPaused;
 
 //-----------------interactions-----------------
 
-function startNext(){}
-function cancelNext(){}
+bindComponents();
+
+nextButton.click(function(){next();});
+prevButton.click(function(){prev();});
+upButton.click(function(){up();});
+downButton.click(function(){down();});
+
+$(nextButton).on({
+	
+	mouseover : function(){startNext();},
+	mouseleave : function(){cancelNext();}
+		
+}, nextButton);
+
+$(prevButton).on({
+	
+	mouseover : function(){startPrev();},
+	mouseleave : function(){cancelPrev();}
+		
+}, prevButton);
+
+$(upButton).on({
+	
+	mouseover : function(){startUp();},
+	mouseleave : function(){cancelUp();}
+		
+}, upButton);
+
+$(downButton).on({
+	
+	mouseover : function(){startDown();},
+	mouseleave : function(){cancelDown();}
+		
+}, downButton);
+
+
+
+
+
+
+
+function startNext(){
+	console.log('startNext');
+}
+function cancelNext(){
+	console.log('cancelNext');
+}
 
 
 function next(){
@@ -46,6 +91,8 @@ function next(){
 //previous is removed
 //next becomes active
 //add next
+
+console.log('next');
 
 activeVid.removeClass('active');
 activeVid.addClass('previous');
@@ -57,8 +104,12 @@ appendElement();
 	
 }
 
-function startPrev(){}
-function cancelPrev(){}
+function startPrev(){
+	console.log('startPrev');
+}
+function cancelPrev(){
+	console.log('cancelPrev');
+}
 
 function prev(){
 	
@@ -66,6 +117,8 @@ function prev(){
 //next is removed
 //previous becomes active
 //add previous
+
+console.log('prev');
 
 activeVid.removeClass('active');
 activeVid.addClass('next');
@@ -78,11 +131,17 @@ prependElement();
 	
 }
 
-function startUp(){}
-function cancelUp(){}
+function startUp(){
+	console.log('startUp');
+}
+function cancelUp(){
+	console.log('cancelUp');
+}
 
 
 function up(){
+	
+console.log('up');
 	
 //characters becomes below
 //sub characters becomes active	
@@ -94,10 +153,17 @@ subCharacterSection.addClass('sectionActive');
 	
 }
 
-function startDown(){}
-function cancelDown(){}
+function startDown(){
+	console.log('startDown');
+}
+function cancelDown(){
+	console.log('cancelDown');
+}
 
 function down(){
+	
+console.log('down');
+
 
 //subCharacters becomes above
 //characters becomes active
@@ -119,22 +185,22 @@ function chapterNext(){}
 
 function bindComponents(){
 
-var nextButton = $('#buttonNext');
-var prevButton = $('#buttonNext');
-var upButton = $('#buttonNext');
-var downButton = $('#buttonNext');
-var nextTitle = $('.next').find('.title');
-var prevTitle = $('.previous').find('.title');
-var activeTitle = $('.active').find('.title');
-var nextSubtitle = $('.next').find('.subtitle');
-var prevSubtitle = $('.previous').find('.subtitle');
-var activeSubtitle = $('.active').find('.subtitle');
-var activeVid = $('.active').find('video');
-var nextVid = $('.next').find('video');
-var prevVid = $('.previous').find('video');
-var pauseMenu = $('.pauseMenu');
-var characterSection = $('#characters');
-var subCharacterSection = $('subCharacters');
+nextButton = $('#buttonNext');
+prevButton = $('#buttonPrevious');
+upButton = $('#buttonUp');
+downButton = $('#buttonDown');
+nextTitle = $('.next').find('.title');
+prevTitle = $('.previous').find('.title');
+activeTitle = $('.active').find('.title');
+nextSubtitle = $('.next').find('.subtitle');
+prevSubtitle = $('.previous').find('.subtitle');
+activeSubtitle = $('.active').find('.subtitle');
+activeVid = $('.active').find('video');
+nextVid = $('.next').find('video');
+prevVid = $('.previous').find('video');
+pauseMenu = $('.pauseMenu');
+characterSection = $('#characters');
+subCharacterSection = $('subCharacters');
 	
 }
 
