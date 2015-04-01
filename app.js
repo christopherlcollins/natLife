@@ -1,5 +1,5 @@
 //-----attributes
-var timeoutDelay = 1000;
+var timeoutDelay = 1250;
 
 //-----components
 
@@ -57,28 +57,28 @@ downButton.click(function(){down();});
 
 $(nextButton).on({
 	
-	mouseover : function(){startNext();},
+	mouseenter : function(){startNext();},
 	mouseleave : function(){cancelNext();}
 		
 }, nextButton);
 
 $(prevButton).on({
 	
-	mouseover : function(){startPrev();},
+	mouseenter : function(){startPrev();},
 	mouseleave : function(){cancelPrev();}
 		
 }, prevButton);
 
 $(upButton).on({
 	
-	mouseover : function(){startUp();},
+	mouseenter : function(){startUp();},
 	mouseleave : function(){cancelUp();}
 		
 }, upButton);
 
 $(downButton).on({
 	
-	mouseover : function(){startDown();},
+	mouseenter : function(){startDown();},
 	mouseleave : function(){cancelDown();}
 		
 }, downButton);
@@ -181,6 +181,7 @@ console.log('up');
 
 characterSection.removeClass('sectionActive');	
 characterSection.addClass('sectionBelow');
+
 subCharacterSection.removeClass('sectionAbove');
 subCharacterSection.addClass('sectionActive');
 
@@ -214,7 +215,8 @@ console.log('down');
 	
 subCharacterSection.removeClass('sectionActive');	
 subCharacterSection.addClass('sectionAbove');
-characterSection.removeClass('sectionAbove');
+
+characterSection.removeClass('sectionBelow');
 characterSection.addClass('sectionActive');
 
 downButton.hide();
